@@ -1,0 +1,13 @@
+version: "3"
+services:
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_USER=gd
+      - POSTGRES_PASSWORD=pw
+      - POSTGRES_DB=hackday
+    ports:
+      - 5432:5432
+    volumes:
+      - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+      - ./db-data:/var/lib/postgresql/data
