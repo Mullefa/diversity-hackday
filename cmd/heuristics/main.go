@@ -3,30 +3,22 @@ package main
 import (
 	"fmt"
 	"hackday-diversity/internal"
-	"os"
 )
-
-func checkError(err error) {
-	if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
-	}
-}
 
 func main() {
 
 	rek, err := internal.NewRekognition()
-	checkError(err)
+	internal.ExitOnError(err)
 
 	db, err := internal.NewDefaultHackdayDB()
-	checkError(err)
+	internal.ExitOnError(err)
 
 	rows, err := db.GetJournalists()
-	checkError(err)
+	internal.ExitOnError(err)
 
 	for rows.Next() {
 		row, err := rows.Scan()
-		checkError(err)
+		internal.ExitOnError(err)
 
 		if len(row.ImageName) == 0 || len(row.Gender) > 0 {
 			continue
